@@ -22,8 +22,8 @@ def train_files(file_):
     num_patch = 0
     w, h = lr_img.shape[:2]
     if w > p_max and h > p_max:
-        w1 = list(np.arange(0, w-patch_size, patch_size-overlap, dtype=np.int))
-        h1 = list(np.arange(0, h-patch_size, patch_size-overlap, dtype=np.int))
+        w1 = list(np.arange(0, w-patch_size, patch_size-overlap, dtype=np.int16))
+        h1 = list(np.arange(0, h-patch_size, patch_size-overlap, dtype=np.int16))
         w1.append(w-patch_size)
         h1.append(h-patch_size)
         for i in w1:
@@ -72,8 +72,8 @@ patch_size = 512
 overlap = 256
 p_max = 0
 
-src = 'Datasets/Downloads/GoPro'
-tar = 'Datasets/train/GoPro'
+src = '/root/autodl-fs/datasets/gopropro/downloads'
+tar = '/root/autodl-fs/datasets/gopropro/train'
 
 lr_tar = os.path.join(tar, 'input_crops')
 hr_tar = os.path.join(tar, 'target_crops')
@@ -91,8 +91,8 @@ Parallel(n_jobs=num_cores)(delayed(train_files)(file_) for file_ in tqdm(files))
 
 ############ Prepare validation data ####################
 val_patch_size = 256
-src = 'Datasets/test/GoPro'
-tar = 'Datasets/val/GoPro'
+src = '/root/autodl-fs/datasets/gopropro/test'
+tar = '/root/autodl-fs/datasets/gopropro/val'
 
 lr_tar = os.path.join(tar, 'input_crops')
 hr_tar = os.path.join(tar, 'target_crops')
